@@ -52,8 +52,4 @@ public class Out {
 		outRequest_at = LocalDateTime.now();
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-    	outComplete_at = LocalDateTime.now();
-    }
 }

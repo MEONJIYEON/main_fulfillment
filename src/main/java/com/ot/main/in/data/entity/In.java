@@ -40,7 +40,6 @@ public class In {
 	private LocalDateTime inRequest_at;
 	
 	// 입고 완료 날짜 
-	
 	private LocalDateTime inComplete_at;
 	
 	@Column(name="inStatus")
@@ -53,9 +52,5 @@ public class In {
 		inRequest_at = LocalDateTime.now();
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-    	inComplete_at = LocalDateTime.now();
-    }
 	
 }
