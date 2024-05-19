@@ -20,16 +20,32 @@ public class Delivery {
 	@Size(max = 10, min = 10)
 	private Integer trackingNumber;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, name="userName")
 	private String userName;
-	private int hp1;
-	private int hp2;
-	private int hp3;
-    private String address;
-    private String zipcode;
-    private String productName;
-    private int stockCount;
-    private String statusDelivery;
+	
+	@Column(nullable = false)
+	private String hp1;
+	
+	@Column(nullable = false)
+	private String hp2;
+	
+	@Column(nullable = false)
+	private String hp3;
+	
+	@Column(nullable = false)
+	private String address;
+	
+	@Column(nullable = false)
+	private String zipcode;
+	
+	@Column(nullable = false, name="productName")
+	private String productName;
+	
+	@Column(nullable = false, name="stockCount")
+	private Integer stockCount;
+	
+	@Column(nullable = false, name="statusDelivery")
+	private String statusDelivery;
     
 	
 }

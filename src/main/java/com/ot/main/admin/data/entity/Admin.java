@@ -13,7 +13,6 @@ import lombok.Data;
 public class Admin {
 
 	@Id
-	@Column (nullable = false)
 	private String id;
 	
 	@Column (nullable = false)
