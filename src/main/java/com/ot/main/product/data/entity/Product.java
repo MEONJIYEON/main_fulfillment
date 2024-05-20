@@ -45,6 +45,18 @@ public class Product {
 	private LocalDateTime updated_at;
 	
 	private LocalDateTime as;
+	@Column(nullable = false)
+	private LocalDateTime create_at;
+	
+	private LocalDateTime updated_at;
+	
+	private LocalDateTime as;
+	@Column(nullable = false)
+	private LocalDateTime create_at;
+	
+	private LocalDateTime updated_at;
+	
+	private LocalDateTime as;
 	
 	@PrePersist
     protected void onCreate() {
