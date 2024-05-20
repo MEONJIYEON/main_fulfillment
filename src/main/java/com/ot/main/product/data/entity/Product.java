@@ -21,30 +21,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Product {
-   @Id
-   @Column(name="productcode")
-   private String productCode;
-   
-   @Column (nullable= false , name="safetystock")
-   private Integer safetyStock;
-   
-   private String name;
-   
-   @Column (nullable= false , name="productstock")
-   private Integer productStock;
-   
-   @Column(name="leadtime")
-   private Integer leadTime;
-   
-   @Column(nullable = false)
-   private String image;
-   
-   @Column(nullable = false)
-   private LocalDateTime create_at;
-   
-   private LocalDateTime updated_at;
-   
-   @PrePersist
+	@Id
+	@Column(name="productcode")
+	private String productCode;
+	
+	@Column (nullable= false , name="safetystock")
+	private Integer safetyStock;
+	
+	private String name;
+	
+	@Column (nullable= false , name="productstock")
+	private Integer productStock;
+	
+	@Column(name="leadtime")
+	private Integer leadTime;
+	
+	@Column(nullable = false)
+	private String image;
+	
+	@Column(nullable = false)
+	private LocalDateTime create_at;
+	
+	private LocalDateTime updated_at;
+	
+	@PrePersist
     protected void onCreate() {
         create_at = LocalDateTime.now();
         updated_at = LocalDateTime.now();
@@ -55,6 +55,5 @@ public class Product {
         updated_at = LocalDateTime.now();
     }
 
-   
 }
 

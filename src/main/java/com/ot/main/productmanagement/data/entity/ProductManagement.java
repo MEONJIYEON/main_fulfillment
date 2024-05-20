@@ -21,25 +21,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductManagement {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_management_seq")
-	private Long id;
-	
-	@OneToOne
-    @JoinColumn(name = "productcode")
-	private String productCode;
-		
-	
-	private String name;
-	
-	@Column (name="safetyStock")
-	private Integer safetyStock;
-	
-	@Column (name="productStock")
-	private Integer productStock;
-	
-	@Column(name="leadTime")
-	private Integer leadTime;
-	
+   
+   @Id
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_management_seq")
+   private Long id;
+   
+   @OneToOne
+   @JoinColumn(name = "productcode")
+   private String productCode;
+      
+   private String name;
+   
+   @Column (name="safetyStock")
+   private Integer safetyStock;
+   
+   @Column (name="productStock")
+   private Integer productStock;
+   
+   @Column(name="leadTime")
+   private Integer leadTime;
+   
 }
