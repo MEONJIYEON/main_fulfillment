@@ -9,26 +9,35 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name="F_Product")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
 	@Id
-	@Column(name="productCode")
+	@Column(name="productcode")
 	private String productCode;
 	
-	@Column (nullable= false , name="safetyStock")
+	@Column (nullable= false , name="safetystock")
 	private Integer safetyStock;
 	
 	private String name;
 	
-	@Column (nullable= false , name="productStock")
+	@Column (nullable= false , name="productstock")
 	private Integer productStock;
 	
-	@Column(name="leadTime")
-	private LocalDateTime leadTime;
+	@Column(name="leadtime")
+	private Integer leadTime;
+	
+	@Column(nullable = false)
+	private String image;
 	
 	@Column(nullable = false)
 	private LocalDateTime create_at;
@@ -45,6 +54,8 @@ public class Product {
     protected void onUpdate() {
         updated_at = LocalDateTime.now();
     }
+
+	
 }
 
 
