@@ -14,7 +14,9 @@ import com.ot.main.admin.service.AdminService;
 @RequestMapping(value = "/api/v1/main-fulfillment")
 public class AdminControllerImpl implements AdminController {
 	
-
+	public String test1() {
+		return "inchan hello";
+	}
 	private final AdminService adminService;
 	
 	@Autowired
