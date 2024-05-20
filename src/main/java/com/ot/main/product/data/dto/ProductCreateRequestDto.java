@@ -15,6 +15,8 @@ public class ProductCreateRequestDto {
 	
 	private Integer safetyStock;
 	
+	private String image;
+	
 	private String name;
 	
 	private Integer productStock;

@@ -10,6 +10,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Table(name="F_Product")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product {
 	@Id
 	@Column(name="productcode")
@@ -35,6 +37,9 @@ public class Product {
 	private Integer leadTime;
 	
 	@Column(nullable = false)
+	private String image;
+	
+	@Column(nullable = false)
 	private LocalDateTime create_at;
 	
 	private LocalDateTime updated_at;
@@ -49,6 +54,8 @@ public class Product {
     protected void onUpdate() {
         updated_at = LocalDateTime.now();
     }
+
+	
 }
 
 

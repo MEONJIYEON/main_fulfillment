@@ -12,10 +12,10 @@ import lombok.Data;
 @Data
 public class Admin {
 
-	@Id
-	private String id;
-	
-	@Column (nullable = false)
-	private String pw;
-	
+   @Id
+   private String id;
+   
+   @Column (nullable = false)
+   private String pw;
+   
 }

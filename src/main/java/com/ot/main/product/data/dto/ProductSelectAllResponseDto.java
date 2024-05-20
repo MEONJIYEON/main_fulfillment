@@ -7,14 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductCreateResponseDto {
-
-	private String productCode;
+public class ProductSelectAllResponseDto {
+private String productCode;
 	
 	private Integer safetyStock;
 	
@@ -29,5 +27,4 @@ public class ProductCreateResponseDto {
 	private LocalDateTime create_at;
 	
 	private LocalDateTime updated_at;
-	
 }
