@@ -22,33 +22,33 @@ import lombok.Data;
 @SequenceGenerator(name = "out_seq", sequenceName = "out_seq", allocationSize = 1)
 @Data
 public class Out {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "out_seq")
-	private Long id;
-	
-	
-	@OneToOne
+   @Id
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "out_seq")
+   private Long id;
+   
+   
+   @OneToOne
     @JoinColumn(name = "productCode")
-	private Product Product;
-	
-	
-	@Column(name="outStock")
-	private Integer outStock;
-	
-	// 출고 요청 날짜 
-	private LocalDateTime outRequest_at;
-	
-	// 출고 완료 날짜 
-	private LocalDateTime outComplete_at;
-	
-	@Column(name="outStatus")
-	// T : 출고 완료 , F : 출고 중 
-	private boolean outStatus;
-	
-	
-	@PrePersist
+   private Product Product;
+   
+   
+   @Column(name="outStock")
+   private Integer outStock;
+   
+   // 출고 요청 날짜 
+   private LocalDateTime outRequest_at;
+   
+   // 출고 완료 날짜 
+   private LocalDateTime outComplete_at;
+   
+   @Column(name="outStatus")
+   // T : 출고 완료 , F : 출고 중 
+   private boolean outStatus;
+   
+   
+   @PrePersist
     protected void onCreate() {
-		outRequest_at = LocalDateTime.now();
+      outRequest_at = LocalDateTime.now();
     }
 
 }

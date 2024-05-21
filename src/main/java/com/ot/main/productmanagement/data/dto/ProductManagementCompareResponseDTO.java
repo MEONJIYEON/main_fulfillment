@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductManagementResponseDTO {
+public class ProductManagementCompareResponseDTO {
 
 	private Long id;
-
 	private String productCode;
 	
 	public ProductManagement fill(ProductManagement productManagement) {

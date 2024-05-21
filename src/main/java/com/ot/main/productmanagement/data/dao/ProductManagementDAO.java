@@ -2,26 +2,27 @@ package com.ot.main.productmanagement.data.dao;
 
 import java.util.List;
 
-import com.ot.main.productmanagement.data.dto.ProductManagementResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
 import com.ot.main.productmanagement.data.entity.ProductManagement;
 
 public interface ProductManagementDAO {
 	
-	//LOOK UP STOCK
-	public List<ProductManagementResponseDTO> lookUpStock(ProductManagementResponseDTO productManagementResponseDTO);
+	// create
+	public ProductManagement createStock(ProductManagement productManagement);
 	
-	//LOOK UP STOCK DETAIL
-	public ProductManagementResponseDTO lookUpStockDetail(Long id);
+	// Update
+	public ProductManagement modifyInStock(String productCode, boolean InStatus, Integer InStock);
 	
-	//MODIFY STOCK
-	//public ProductManagementResponseDTO modifyStock(ProductManagementResponseDTO productManagementResponseDTO);
-	
-	public ProductManagement modifyStock(ProductManagement productManagement);
-	
-	//setting Orgin entity
-	public List<ProductManagement> lookUpEntity();
-	
-	//CALCULATE SAFETYSTOCK
-	public void calculateSafetyStock();
+	// Update
+	public ProductManagement modifyOutStock(String productCode, boolean OutStatus, Integer OutStock);
 
+	// LOOK UP STOCK DETAIL
+	public ProductManagement selectOneStock(Long id);
+	
+	//LOOK UP STOCK
+	public List<ProductManagement> selectStockList( );
+	
+	//compare
+	public ProductManagement compareStockAndSafetyStock(String productCode);
 }
