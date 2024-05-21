@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.productmanagement.controller.ProductManagementController;
-import com.ot.main.productmanagement.data.dto.ProductManagementResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCreateRequestDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementSelectOneResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementUpdateResponseDTO;
 import com.ot.main.productmanagement.service.ProductManagementService;
 
 @RestController
@@ -27,57 +31,73 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 		this.productManagementService = productManagementService;
 	}
 
-	@GetMapping("/lookUpStock")
+	// 재고 생성
+	@PostMapping("createStock")
 	@Override
-	// lookup stock
-	public String lookUpStock(ProductManagementResponseDTO productManagementResponseDTO) {
+	public ResponseEntity<ProductManagementCreateResponseDTO> createStock(
+			ProductManagementCreateRequestDTO productManagementCreateRequestDTO) {
 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/lookUpStock");
+		ProductManagementCreateResponseDTO createProduct = productManagementService
+				.createStock(productManagementCreateRequestDTO);
+		System.out.println("============createProduct : " + createProduct + "================");
 
-		List<ProductManagementResponseDTO> stockList = this.productManagementService
-				.lookUpStock(productManagementResponseDTO);
-		System.out.println("stockList : " + stockList);
-		return "list";
+		return ResponseEntity.status(HttpStatus.OK).body(createProduct);
 	}
 
-	@GetMapping("/lookUpStockDetail")
+	// 재고수정
+	@PutMapping("/modifyInStock")
 	@Override
-	public String lookUpStockDetail(Long id) {
-		ModelAndView mav = new ModelAndView();
+	public ResponseEntity<ProductManagementUpdateResponseDTO> modifyInStock(String productCode, boolean inStatus,
+			Integer inStock) {
 
-		ProductManagementResponseDTO oneStock = new ProductManagementResponseDTO();
+		ProductManagementUpdateResponseDTO updateProduct = productManagementService.modifyInStock(productCode, inStatus,
+				inStock);
+		System.out.println("============updateProduct  : " + updateProduct + "================");
 
-		oneStock = productManagementService.lookUpStockDetail(id);
+		return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
+	}
+	
+	// 재고수정
+		@PutMapping("/modifyOutStock")
+		@Override
+		public ResponseEntity<ProductManagementUpdateResponseDTO> modifyOutStock(String productCode, boolean outStatus, 
+				Integer outStock) {
+
+			ProductManagementUpdateResponseDTO updateProduct = productManagementService.modifyOutStock(productCode, outStatus, outStock);
+	
+			System.out.println("============updateProduct  : " + updateProduct + "================");
+
+			return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
+		}
+
+	// 재고 상세보기
+	@GetMapping("/selectStockDetail")
+	@Override
+	public ResponseEntity<ProductManagementSelectOneResponseDTO> selectStockDetail(Long id) {
+
+		ProductManagementSelectOneResponseDTO oneStock = productManagementService.selectStockDetail(id);
 		System.out.println("oneStock : " + oneStock);
 
-		mav.addObject("oneStock", oneStock);
-		mav.setView(null);
-
-		return "detail";
+		 return ResponseEntity.status(HttpStatus.OK).body(oneStock);
 	}
-	
-	@GetMapping("")
+
+	// 재고목록 조회
+	@GetMapping("/lookUpStock")
 	@Override
-	public ResponseEntity<ProductManagementResponseDTO> createStock(String productCode) {
+	public ResponseEntity<List<ProductManagementSelectListResponseDTO>> selectStockList() {
+
+		List<ProductManagementSelectListResponseDTO> stockList = productManagementService.selectStockList();
+		System.out.println("=========" + stockList + "=========");
 		
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		return ResponseEntity.status(HttpStatus.OK).body(stockList) ;
 	}
-	
-	@PutMapping("/modifyStock")
+
+	// 안전재고 , 보유 재고 비교
+	@GetMapping("/compareStockAndSafetyStock")
 	@Override
-	public ResponseEntity<ProductManagementResponseDTO> modifyStock(@RequestBody ProductManagementResponseDTO productManagementResponseDTO) {
-		ProductManagementResponseDTO result = productManagementService.modifyStock(productManagementResponseDTO);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(result);
+	public void compareStockAndSafetyStock(String productCode) {
+		ProductManagementCompareResponseDTO productManagementCompareResponseDTO = productManagementService.compareStockAndSafetyStock(productCode);
 	}
 
-	@Override
-	public void calculateSafetyStock() {
-		// TODO Auto-generated method stub
-
-	}
-
-	
 
 }

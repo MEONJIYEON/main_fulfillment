@@ -2,23 +2,35 @@ package com.ot.main.productmanagement.service;
 
 import java.util.List;
 
-import com.ot.main.productmanagement.data.dto.ProductManagementResponseDTO;
-import com.ot.main.productmanagement.data.entity.ProductManagement;
+import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCreateRequestDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementSelectOneResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementUpdateResponseDTO;
+
 
 public interface ProductManagementService{
-
-	//LOOK UP STOCK
-	public List<ProductManagementResponseDTO> lookUpStock(ProductManagementResponseDTO productManagementResponseDTO);
 	
-	//LOOK UP STOCK DETAIL
-	public ProductManagementResponseDTO lookUpStockDetail(Long id);
+	//CREATE STOCK
+	public ProductManagementCreateResponseDTO createStock(ProductManagementCreateRequestDTO productManagementCreateRequestDTO);		
 	
 	//MODIFY STOCK
-	public ProductManagementResponseDTO modifyStock(ProductManagementResponseDTO productManagementResponseDTO);
+	public ProductManagementUpdateResponseDTO modifyInStock(String productCode, boolean inStatus, Integer inStock);
 	
-	//setting Orgin entity
-	public List<ProductManagement> lookUpEntity();
+	//MODIFY OutSTOCK
+	public ProductManagementUpdateResponseDTO modifyOutStock(String productCode, boolean outStatus, Integer outStock);
 	
-	//CALCULATE SAFETYSTOCK
-	public void calculateSafetyStock();
+	//selectStockDetail
+	public ProductManagementSelectOneResponseDTO selectStockDetail(Long id);
+	
+	//selectList
+	public List<ProductManagementSelectListResponseDTO> selectStockList( );
+	
+	//Compare
+	public ProductManagementCompareResponseDTO compareStockAndSafetyStock(String productCode);
+
+
+
+
 }

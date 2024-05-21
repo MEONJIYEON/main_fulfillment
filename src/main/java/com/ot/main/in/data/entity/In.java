@@ -22,33 +22,35 @@ import lombok.Data;
 @SequenceGenerator(name = "in_seq", sequenceName = "in_seq", allocationSize = 1)
 @Data
 public class In {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "in_seq")
-	private Long id;
-	
-	@OneToOne
+
+   @Id
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "in_seq")
+   private Long id;
+   
+   @OneToOne
     @JoinColumn(name = "productCode")
-	private Product Product;
-	
-	// 입고 개수 default
-	@Column(name="inStock")
-	private Integer inStock;
-	
-	// 입고 요청 날짜 
-	private LocalDateTime inRequest_at;
-	
-	// 입고 완료 날짜 
-	private LocalDateTime inComplete_at;
-	
-	@Column(name="inStatus")
-	// T : 입고완료 , F : 입고 중 
-	private boolean inStatus;
-	
-	
-	@PrePersist
+   private Product Product;
+   
+   // 입고 개수 default
+   @Column(name="inStock")
+   private Integer inStock;
+   
+   // 입고 요청 날짜 
+   private LocalDateTime inRequest_at;
+   
+   // 입고 완료 날짜 
+   private LocalDateTime inComplete_at;
+   
+   @Column(name="inStatus")
+   // T : 입고완료 , F : 입고 중 
+   private boolean inStatus;
+   
+   
+   @PrePersist
+
     protected void onCreate() {
-		inRequest_at = LocalDateTime.now();
+      inRequest_at = LocalDateTime.now();
     }
 
-	
+   
 }
