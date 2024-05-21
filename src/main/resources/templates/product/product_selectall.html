@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manufacturer Management</title>
+    <meta charset="utf8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], input[type="checkbox"], button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+      <h1>Main_fulfillment Product</h1>
+        <h2>상품 전체</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>상품 코드</th>
+                    <th>상품명</th>
+                    <th>리드 타임</th>
+                    <th>안전 재고</th>
+                    <th>상품 재고</th>
+                    <th>상품 이미지</th>
+                    <th>상품 등록 날짜</th>
+                    <th>상품 수정 날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.productCode}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.leadTime}"></td>
+                    <td th:text="${product.safetyStock}"></td>
+                    <td th:text="${product.productStock}"></td>
+                    <td th:text="${product.image}"></td>
+                    <td th:text="${product.create_at}"></td>
+                    <td th:text="${product.updated_at}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+         
+        <h2>만들자~</h2>
+        <form id="createForm" th:action="@{/api/v1/main-fulfillment/product/create}" method="post">
+            <label for="createName">상품 코드</label>
+            <input type="text" name="productCode" placeholder="ex:Mon-1">
+            
+            <label for="createStock">상품 이름</label>
+            <input type="text" name="name">
+            
+            <label for="createStock">안전 재고</label>
+            <input type="number" name="safetyStock">
+            
+            <label for="createStock">이미지</label>
+            <input type="text" name="image">
+
+            <label for="createStock">상품 재고</label>
+            <input type="number" name="productStock">
+            
+            <label for="createStock">리드 타임</label>
+            <input type="number" name="leadTime">
+            
+            <button type="submit">생성</button>
+        </form>
+        
+      <h2>수정하자~</h2>
+      <form id="updateForm" th:action="@{/api/v1/main-fulfillment/product/update}" method="post">
+            <label for="createName">상품 코드</label>
+            <input type="text" name="productCode">
+            
+            <label for="createStock">상품 이름</label>
+            <input type="text" name="name">
+            
+            <label for="createStock">안전 재고</label>
+            <input type="number" name="safetyStock">
+            
+            <label for="createStock">이미지</label>
+            <input type="text" name="image">
+
+            <label for="createStock">상품 재고</label>
+            <input type="number" name="productStock">
+            
+            <label for="createStock">리드 타임</label>
+            <input type="number" name="leadTime">
+            
+            <button type="submit">생성</button>
+      </form>
+  	
+      <h2>삭제하자~</h2>
+      <form id="deleteForm" th:action="@{/api/v1/main-fulfillment/product/delete}" method="post">
+            <label for="deleteId">상품 코드</label>
+            <input type="text" name="productCode">
+            <button type="submit">삭제</button>
+      </form>
+    </div>
+    	
+</body>
+</html>

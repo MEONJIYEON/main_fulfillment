@@ -19,12 +19,20 @@ public class ProductDAOImpl implements ProductDAO {
 	public ProductDAOImpl(ProductRepository productRepository) {
 		this.productRepository = productRepository;
 	}
-	
+	/*
 	@Override
 	public List<Product> findAllProduct() {
 		List<Product> productSelectAllResponseDtoList = productRepository.findAll();
 		return productSelectAllResponseDtoList;
 	}
+	*/
+	
+	@Override
+	public List<Product> findAllProduct() {
+		List<Product> productSelectAllResponseDtoList = productRepository.findAllByOrderByProductCodeDesc();
+		return productSelectAllResponseDtoList;
+	}
+	
 	
 	@Override
 	public Product insertProduct(Product product) {
@@ -66,6 +74,7 @@ public class ProductDAOImpl implements ProductDAO {
 	            System.out.println(product);
 	            productRepository.delete(product);
 	            
+	            
 	     } else {
 	    	 	System.out.println("해당하는 상품코드의 상품이 없습니다.");
 	    	 	//throw new Exception();
@@ -97,6 +106,9 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Product> searchProductList = productRepository.findByNameContaining(searchKeyword);
 		return searchProductList;
 	}
+
+
+	
 	
 	
 	

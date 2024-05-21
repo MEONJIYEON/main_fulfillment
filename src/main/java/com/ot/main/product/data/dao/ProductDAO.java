@@ -5,6 +5,7 @@ import java.util.List;
 import com.ot.main.product.data.entity.Product;
 
 public interface ProductDAO {
+	
 	Product insertProduct(Product product);
 	
 	List<Product> findAllProduct();
