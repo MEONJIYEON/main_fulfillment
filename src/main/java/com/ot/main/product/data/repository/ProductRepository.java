@@ -11,7 +11,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 	List<Product> findByProductCodeContaining(String ProductCode);
 	List<Product> findByNameContaining(String name);
 	
+	List<Product> findAllByOrderByProductCodeDesc();
 	// 정렬 
-	
+	//List<Product> findAllByOrderBy
 
 }

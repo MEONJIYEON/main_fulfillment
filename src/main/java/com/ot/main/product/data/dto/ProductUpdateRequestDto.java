@@ -24,4 +24,5 @@ public class ProductUpdateRequestDto {
 	private Integer productStock;
 
 	private Integer leadTime;
+
 }
