@@ -26,12 +26,11 @@ public class In {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "in_seq")
 	private Long id;
 	
-	
 	@OneToOne
     @JoinColumn(name = "productCode")
 	private Product Product;
 	
-	
+	// 입고 개수 default
 	@Column(name="inStock")
 	private Integer inStock;
 	

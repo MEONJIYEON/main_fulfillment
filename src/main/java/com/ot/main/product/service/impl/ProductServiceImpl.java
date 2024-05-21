@@ -16,8 +16,6 @@ import com.ot.main.product.data.dto.ProductUpdateRequestDto;
 import com.ot.main.product.data.dto.ProductUpdateResponseDto;
 import com.ot.main.product.data.entity.Product;
 import com.ot.main.product.service.ProductService;
-import com.ot.main.productmanagement.data.dao.ProductManagementDAO;
-import com.ot.main.productmanagement.data.dto.ProductManagementResponseDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -43,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
 	                .productStock(product.getProductStock())
 	                .leadTime(product.getLeadTime())
 	                .create_at(product.getCreate_at())
+	                .updated_at(product.getUpdated_at())
 	                .build())
 	            .collect(Collectors.toList());
 		return productSelectAllResponseDtoList;
@@ -61,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setSafetyStock(productCreateRequestDto.getSafetyStock());
 		product.setLeadTime(productCreateRequestDto.getLeadTime());
 		product.setCreate_at(LocalDateTime.now());
-		product.setUpdated_at(LocalDateTime.now());
+		//product.setUpdated_at(LocalDateTime.now());
 		
 		Product savedProduct = productDAO.insertProduct(product);
 		
@@ -89,7 +88,6 @@ public class ProductServiceImpl implements ProductService {
 			    .productStock(productUpdateRequestDto.getProductStock())
 			    .safetyStock(productUpdateRequestDto.getSafetyStock())
 			    .leadTime(productUpdateRequestDto.getLeadTime())
-			    .updated_at(LocalDateTime.now())
 			    .build();
 	
 		Product updatedProduct = productDAO.updateProduct(product);

@@ -6,15 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.product.controller.ProductController;
 import com.ot.main.product.data.dto.ProductCreateRequestDto;
@@ -36,6 +34,8 @@ public class ProductControllerImpl implements ProductController{
 		this.productService = productService;
 	}
 	
+	// Select All 
+	/* 
 	@Override
 	@GetMapping()
 	public ResponseEntity<List<ProductSelectAllResponseDto>> seletcAllProduct() {
@@ -43,16 +43,39 @@ public class ProductControllerImpl implements ProductController{
 		return ResponseEntity.status(HttpStatus.OK).body(productSelectAllResponseDtoList);
 		
 	}
+	*/
+	@Override
+	@GetMapping("/selectAll")
+	public ModelAndView seletcAllProduct(){
+		List<ProductSelectAllResponseDto> productSelectAllResponseDtoList = productService.seletcAllProduct();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("products", productSelectAllResponseDtoList);
+		mav.setViewName("/product/product_selectall");
+		return mav;
+	}
 	
-
+	// create
+	/* 
 	@Override
 	@PostMapping()
 	public ResponseEntity<ProductCreateResponseDto> saveProduct(@RequestBody ProductCreateRequestDto productCreateRequestDto) {
 		ProductCreateResponseDto productCreateResponseDto = productService.saveProduct(productCreateRequestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(productCreateResponseDto);
 	}
+	*/
 	
+	@Override
+	@PostMapping("/create")
+	public ModelAndView saveProduct(@ModelAttribute ProductCreateRequestDto productCreateRequestDto) {
+		System.out.println(productCreateRequestDto);
+		ProductCreateResponseDto productCreateResponseDto = productService.saveProduct(productCreateRequestDto);
+		
+		return new ModelAndView("redirect:/api/v1/main-fulfillment/product/selectAll");
+	}
 	
+	// update
+	/* 
 	@Override
 	@PutMapping()
 	public ResponseEntity<ProductUpdateResponseDto> updateProduct(@RequestBody ProductUpdateRequestDto productUpdateRequestDto) throws Exception {
@@ -65,13 +88,40 @@ public class ProductControllerImpl implements ProductController{
 		}
 		
 	}
+	*/
 	
+	
+	@Override
+	@PostMapping("/update")
+	public ModelAndView updateProduct(@ModelAttribute ProductUpdateRequestDto productUpdateRequestDto) throws Exception {
+		ProductUpdateResponseDto productUpdateResponseDto = productService.updateProduct(productUpdateRequestDto);
+		ModelAndView mav = new ModelAndView();
+
+		if(productUpdateResponseDto.getProductCode() == null || productUpdateResponseDto.getProductCode().isEmpty()) {
+			// error templates 띄우기
+			mav.setViewName("/product/product_error");
+			return mav;
+		} else {
+			return new ModelAndView("redirect:/api/v1/main-fulfillment/product/selectAll");
+		}
+	}
+	
+	//delete
+	/* 
 	@Override
 	@DeleteMapping("/{productCode}")
 	public ResponseEntity<String> deleteProduct(@PathVariable String productCode) throws Exception {
 		productService.deleteProduct(productCode);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("정상적으로 삭제되었습니다.");
+	}
+	*/
+	
+	@Override
+	@PostMapping("/delete")
+	public ModelAndView deleteProduct(String productCode) throws Exception {
+		productService.deleteProduct(productCode);
+		return new ModelAndView("redirect:/api/v1/main-fulfillment/product/selectAll");
 	}
 
 	
@@ -98,6 +148,12 @@ public class ProductControllerImpl implements ProductController{
         	return ResponseEntity.ok(productSearchCodeOrNameResponseDtoList); // 200 OK with products in the body
         }
 	}
+
+	
+
+	
+
+	
 	
 	
 	
