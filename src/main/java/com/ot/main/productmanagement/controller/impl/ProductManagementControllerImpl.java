@@ -98,6 +98,25 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 	public void compareStockAndSafetyStock(String productCode) {
 		ProductManagementCompareResponseDTO productManagementCompareResponseDTO = productManagementService.compareStockAndSafetyStock(productCode);
 	}
-
-
+	
+	// 서버로부터 주문정보를 받아옴 
+	
+	// 주문정보를 세션에다가 때려박음 
+	
+	/*
+	public 서버통신(){
+		서버통신 -> 데이터 
+		Session session = new Session();
+		session.get("id" , product.getProduct);
+		
+		
+		session.invalid();
+	
+	}
+	
+	
+	
+	
+	
+	*/
 }

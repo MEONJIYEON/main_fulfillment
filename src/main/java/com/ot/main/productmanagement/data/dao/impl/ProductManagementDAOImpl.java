@@ -1,8 +1,14 @@
 package com.ot.main.productmanagement.data.dao.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.ot.main.in.controller.impl.InControllerImpl;
+import com.ot.main.in.data.dto.InCreateRequestDto;
+import com.ot.main.out.controller.impl.OutControllerImpl;
+import com.ot.main.out.data.dto.OutCreateRequestDto;
 import com.ot.main.product.data.repository.ProductRepository;
 import com.ot.main.productmanagement.data.dao.ProductManagementDAO;
 import com.ot.main.productmanagement.data.entity.ProductManagement;
@@ -13,14 +19,19 @@ import com.ot.main.productmanagement.data.repository.ProductManagementRepository
 public class ProductManagementDAOImpl implements ProductManagementDAO{
 
 	private final ProductManagementRepository productManagementRepository;
+	private final ProductRepository productRepository;
+	private InControllerImpl inControllerImpl;
+	private OutControllerImpl outControllerImpl;
 	
 	@Autowired
-	public ProductManagementDAOImpl(ProductManagementRepository productManagementRepository, ProductRepository productRepository) {
+	public ProductManagementDAOImpl(ProductManagementRepository productManagementRepository, ProductRepository productRepository, InControllerImpl inControllerImpl, OutControllerImpl outControllerImpl) {
 		this.productManagementRepository = productManagementRepository;
-		
+		this.productRepository = productRepository;
+		this.inControllerImpl = inControllerImpl;
+		this.outControllerImpl = outControllerImpl;
 	}
 	
-//CREATE
+    // 재고 생성
 	@Override
 	public ProductManagement createStock(ProductManagement productManagement) {
     	ProductManagement createStock = productManagementRepository.save(productManagement);
@@ -28,8 +39,7 @@ public class ProductManagementDAOImpl implements ProductManagementDAO{
 		return createStock;
 	}
 
-	
-//	Update
+    // 입고_ 재고변경
 	@Override
 	public ProductManagement modifyInStock(String productCode, boolean inStatus, Integer inStock) {
 		ProductManagement udpateStock = productManagementRepository.findByProductCode(productCode);
@@ -46,7 +56,7 @@ public class ProductManagementDAOImpl implements ProductManagementDAO{
 		return udpateStock;
 	}
 	
-//	Update
+    // 출고_ 재고변경
 	@Override
 	public ProductManagement modifyOutStock(String productCode, boolean OutStatus, Integer OutStock) {
 		ProductManagement udpateStock = productManagementRepository.findByProductCode(productCode);
@@ -54,16 +64,16 @@ public class ProductManagementDAOImpl implements ProductManagementDAO{
 		if (udpateStock != null && OutStatus == true) {
 			udpateStock.setProductCode(productCode);
 			
-			//입고
 			udpateStock.setProductStock(udpateStock.getProductStock() - OutStock);
-				
+			
 			productManagementRepository.save(udpateStock);
 	    	System.out.println("checkStock : " + udpateStock);
+	    	
 		}
 		return udpateStock;
 	}
 
-	//selectOneDetail
+	//상세 보기
 	@Override
 	public ProductManagement selectOneStock(Long id) {
 		ProductManagement stock = productManagementRepository.getById(id);
@@ -93,7 +103,31 @@ public class ProductManagementDAOImpl implements ProductManagementDAO{
 			if (compareProductStock != null && compareSafetyStock!= null &&   compareProductStock <= compareSafetyStock ) {
 				System.out.println("compareProductStock : " + compareProductStock + ":::::::::: compareSafetyStock : " +  compareSafetyStock);
 				System.out.println("입고요청");
+			
+				InCreateRequestDto inCreateRequestDto = new InCreateRequestDto();
+				
+				
+				// 서버 통신으로부터 받은 값을 넣어주기 
+				inCreateRequestDto.setInStatus(false);
+				inCreateRequestDto.setInStock(10);
+				
+				
+				inControllerImpl.saveIn(inCreateRequestDto, productCode);
+				
+			
+			}else if (compareProductStock != null && compareSafetyStock!= null && compareProductStock > compareSafetyStock ) {
+				System.out.println("출고 요청");
+				
+				OutCreateRequestDto outCreateRequestDto = new OutCreateRequestDto();
+				
+				// 서버 통신으로부터 받은 값을 넣어주기 
+				outCreateRequestDto.setOutStatus(false);
+				outCreateRequestDto.setOutStock(10);
+				
+				
+				outControllerImpl.saveOut(outCreateRequestDto, productCode);
 			}
+	
 		}
 		return null;
 	}

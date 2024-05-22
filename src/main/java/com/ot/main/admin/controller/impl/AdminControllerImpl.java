@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.admin.controller.AdminController;
 import com.ot.main.admin.data.dto.AdminResponseDTO;
@@ -33,23 +34,25 @@ public class AdminControllerImpl implements AdminController {
 
 	@GetMapping("/login")
 	@Override
-	//login
-	public String login(String id, Model model) {
-		
+	// login
+	public ModelAndView login(String id) {
+
+		ModelAndView mav = new ModelAndView();
 		AdminResponseDTO loginResult = adminService.login(id);
-		
+
 		if (loginResult.getId() != null) {
-			//login success
+			// login success
 			System.out.println("loginResult : " + loginResult);
-			model.addAttribute("loginResult", loginResult);
-			
-			return "next";
-		}else {
-			//login fail
+			mav.setViewName("");
+			mav.addObject("loginResult", loginResult);
+			return mav;
+		} else {
+			// login fail
 			System.out.println("loginResult : " + loginResult);
-			return "login";
+			mav.setViewName("");
+			return mav;
 		}
-	
+
 	}
 	
 	

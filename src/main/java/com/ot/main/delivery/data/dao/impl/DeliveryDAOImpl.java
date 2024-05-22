@@ -1,5 +1,6 @@
 package com.ot.main.delivery.data.dao.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,8 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 
 		Delivery saveDelivery = new Delivery();
 
-		if (updateDelivery.isPresent() && outStatus == false) {
+		//outStatus == true 이면 출고 완료 상태
+		if (updateDelivery.isPresent() && outStatus == true) {
 			Delivery selectONE = updateDelivery.get();
 
 			// Delivery 배송 상태 및 OutStock으로 수량 변경
@@ -57,5 +59,15 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	
 		return saveDelivery;
 
+	}
+
+	//List
+	@Override
+	public List<Delivery> selectDeliveryList() {
+		
+		List<Delivery> deliveryList = deliveryRepository.findAll();
+		System.err.println("======= deliveryList :" + deliveryList + "=====================");
+		
+		return deliveryList;
 	}
 }
