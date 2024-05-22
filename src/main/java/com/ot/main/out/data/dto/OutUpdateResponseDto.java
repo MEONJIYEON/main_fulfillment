@@ -17,8 +17,6 @@ public class OutUpdateResponseDto {
 	
 	private Long id;
 	
-	private Product product;
-	
 	private Integer outStock;
 	
 	private boolean outStatus;

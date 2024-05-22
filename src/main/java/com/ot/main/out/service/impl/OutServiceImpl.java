@@ -70,14 +70,13 @@ public class OutServiceImpl implements OutService {
 		out.setId(outUpdateRequestDto.getId());
 		out.setOutStock(outUpdateRequestDto.getOutStock());
 		out.setOutStatus(outUpdateRequestDto.isOutStatus());
-		out.setOutComplete_at(outUpdateRequestDto.getOutComplete_at());
+		out.setOutComplete_at(LocalDateTime.now());
 		
 		Out updatedOut = outDAO.updateOut(out);
 		
 		OutUpdateResponseDto outUpdateResponseDto = new OutUpdateResponseDto();
 		outUpdateResponseDto.setId(updatedOut.getId());
 		outUpdateResponseDto.setOutStock(updatedOut.getOutStock());
-		outUpdateResponseDto.setProduct(updatedOut.getProduct());
 		outUpdateResponseDto.setOutStatus(updatedOut.isOutStatus());
 		outUpdateResponseDto.setOutRequest_at(updatedOut.getOutRequest_at());
 		outUpdateResponseDto.setOutComplete_at(updatedOut.getOutComplete_at());

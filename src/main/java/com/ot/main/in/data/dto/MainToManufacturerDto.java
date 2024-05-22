@@ -1,5 +1,4 @@
-package com.ot.main.out.data.dto;
-
+package com.ot.main.in.data.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,12 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OutUpdateRequestDto {
-	
-	private Long id;
-	
-	private Integer outStock;
-
-	private boolean outStatus;
-	
+public class MainToManufacturerDto {
+	String out_productcode;
+	String out_pname;
+	Integer out_stock;
 }
