@@ -1,5 +1,7 @@
 package com.ot.main.delivery.data.dao;
 
+import java.util.List;
+
 import com.ot.main.delivery.data.entity.Delivery;
 
 public interface DeliveryDAO  {
@@ -10,4 +12,7 @@ public interface DeliveryDAO  {
 	//update
 	Delivery updateDelivery(Long id, String productCode, boolean outStatus,
 			Integer outStock);
+	
+	//List
+    List<Delivery> selectDeliveryList();
 }

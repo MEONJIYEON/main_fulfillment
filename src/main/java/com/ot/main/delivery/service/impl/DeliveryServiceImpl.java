@@ -1,7 +1,9 @@
 package com.ot.main.delivery.service.impl;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +11,12 @@ import org.springframework.stereotype.Service;
 import com.ot.main.delivery.data.dao.DeliveryDAO;
 import com.ot.main.delivery.data.dto.DeliveryCreateRequestDTO;
 import com.ot.main.delivery.data.dto.DeliveryCreateResponseDTO;
+import com.ot.main.delivery.data.dto.DeliveryListResponseDTO;
 import com.ot.main.delivery.data.dto.DeliveryUpdateResponseDTO;
 import com.ot.main.delivery.data.entity.Delivery;
 import com.ot.main.delivery.service.DeliveryService;
+import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
+import com.ot.main.productmanagement.data.entity.ProductManagement;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
@@ -99,6 +104,28 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 		
 		return successUpdateDelivery;
+	}
+
+	@Override
+	public List<DeliveryListResponseDTO> selectDeliverlist() {
+		List<Delivery> List = deliveryDAO.selectDeliveryList();
+		
+		List<DeliveryListResponseDTO> deliveryList = List.stream().map(
+				delivery -> new DeliveryListResponseDTO(
+						delivery.getId(),
+						delivery.getTrackingNumber(),
+						delivery.getUserName(),
+						delivery.getHp1(),
+						delivery.getHp2(),
+						delivery.getHp3(),
+						delivery.getAddress(),
+						delivery.getZipcode(),
+						delivery.getProductName(),
+						delivery.getStockCount(),						
+						delivery.getStatusDelivery(),
+						delivery.getProductCode())).collect(Collectors.toList());
+	
+		return deliveryList;
 	}
 
 }

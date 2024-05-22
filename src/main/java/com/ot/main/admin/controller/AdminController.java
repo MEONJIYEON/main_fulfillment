@@ -1,7 +1,7 @@
 package com.ot.main.admin.controller;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 public interface AdminController {
 
@@ -9,6 +9,6 @@ public interface AdminController {
 	public String showLogin();
 	
 	//Login
-	public String login(@RequestParam String id,  Model model);
+	ModelAndView login(@RequestParam String id);
 	
 }
