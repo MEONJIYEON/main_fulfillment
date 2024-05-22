@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manufacturer Management</title>
+<!--   	<meta charset="UTF-8"> -->
+  	<meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], input[type="checkbox"], button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+      <h2>수정하자~</h2>
+      <form id="updateForm" th:action="@{/api/v1/main-fulfillment/product/update}" method="post">
+            <label for="createName">상품 코드</label>
+            <input type="text" name="productCode" th:value="${product.productCode}" readOnly>
+            
+            <label for="createStock">상품 이름</label>
+            <input type="text" name="name"  th:value="${product.name}">
+            
+            <label for="createStock">안전 재고</label>
+            <input type="number" name="safetyStock"  th:value="${product.safetyStock}">
+            
+            <label for="createStock">이미지</label>
+            <input type="text" name="image"  th:value="${product.image}">
+
+            <label for="createStock">상품 재고</label>
+            <input type="number" name="productStock"  th:value="${product.productStock}">
+            
+            <label for="createStock">리드 타임</label>
+            <input type="number" name="leadTime"  th:value="${product.leadTime}">
+            
+            <button type="submit">수정 완료</button>
+      </form>
+  </div>
+</body>
+</html>

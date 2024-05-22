@@ -71,50 +71,45 @@
 </head>
 <body>
       <div class="container">
-      <h1>Main_fulfillment Product</h1>
-      <h2>상품 전체</h2>
+      <h1>Main_fulfillment In</h1>
+      <h2>입고 관리</h2>
       <div style="text-align: right; margin-top: 20px; width:150px;">
-            <form th:action="@{/api/v1/main-fulfillment/product/createPage}" method="post">
-                <button type="submit">상품 생성</button>
+            <form th:action="@{/api/v1/main-fulfillment/in/createPage}" method="post">
+            	<input type="text" name="productCode"></input>
+                <button type="submit">입고 생성</button>
             </form>
       </div>  
         <table>
             <thead>
                 <tr>
-                    <th>상품 코드</th>
-                    <th>상품명</th>
-                    <th>리드 타임</th>
-                    <th>안전 재고</th>
-                    <th>상품 재고</th>
-                    <th>상품 이미지</th>
-                    <th>상품 등록 날짜</th>
-                    <th>상품 수정 날짜</th>
-                    <th></th>
+                    <th>입고 번호</th>
+                    <th>입고 수량</th>
+                    <th>입고 상품명</th>
+                    <th>입고 타임</th>
+                    <th>입고 요청 시간</th>
+                    <th>입고 완료 시간</th>
+                    <th>입고 상태</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.productCode}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.leadTime}"></td>
-                    <td th:text="${product.safetyStock}"></td>
-                    <td th:text="${product.productStock}"></td>
-                    <td th:text="${product.image}"></td>
-                    <td th:text="${product.create_at}"></td>
-                    <td th:text="${product.updated_at}"></td>
+                <tr th:each="in : ${ins}">
+                    <td th:text="${in.id}"></td>
+                    <td th:text="${in.inStock}"></td>
+                    <td th:text="${in.getProduct().getName()}"></td>
+                    <td th:text="${in.getProduct().getLeadTime}"></td>
+                    <td th:text="${in.inRequest_at}"></td>
+                    <td th:text="${in.inComplete_at}"></td>
+                    <td th:text="${in.inStatus}"></td>
                     <td>
-                    	<form th:action="@{/api/v1/main-fulfillment/product/delete}" method="post">
-                            <input type="hidden" name="productCode" th:value="${product.productCode}">
+                    	<form th:action="@{/api/v1/main-fulfillment/in/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${in.id}">
                             <button type="submit">삭제</button>
                         </form>
                         
-                        <form th:action="@{/api/v1/main-fulfillment/product/updatePage}"method="post">
-                        	<input type="hidden" name="productCode" th:value="${product.productCode}">
-                        	<input type="hidden" name="name" th:value="${product.name}">
-                        	<input type="hidden" name="safetyStock" th:value="${product.safetyStock}">
-                        	<input type="hidden" name="image" th:value="${product.image}">
-                        	<input type="hidden" name="productStock" th:value="${product.productStock}">
-                        	<input type="hidden" name="leadTime" th:value="${product.leadTime}">
+                        <form th:action="@{/api/v1/main-fulfillment/in/updatePage}"method="post">
+                        	<input type="hidden" name="id" th:value="${in.id}">
+                        	<input type="hidden" name="inStock" th:value="${in.inStock}">
+                        	<input type="hidden" name="inStatus" th:value="${in.inStatus}">
                         	<button type="submit">수정</button>
                         </form>
                     </td>

@@ -69,7 +69,7 @@ public class InServiceImpl implements InService {
 		in.setId(inUpdateRequestDto.getId());
 		in.setInStock(inUpdateRequestDto.getInStock());
 		in.setInStatus(inUpdateRequestDto.isInStatus());
-		in.setInComplete_at(inUpdateRequestDto.getInComplete_at());
+		in.setInComplete_at(LocalDateTime.now());
 		
 		In updatedIn = inDAO.updateIn(in);
 		

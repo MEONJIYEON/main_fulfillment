@@ -17,7 +17,7 @@ public interface ProductController {
 	
 	//ResponseEntity<ProductCreateResponseDto> saveProduct(ProductCreateRequestDto productCreateRequestDto);
 	ModelAndView saveProduct(@ModelAttribute ProductCreateRequestDto productCreateRequestDto);
-	
+	ModelAndView saveProductPage();
 	
 	//ResponseEntity<ProductUpdateResponseDto> updateProduct(ProductUpdateRequestDto productUpdateRequestDto) throws Exception;
 	ModelAndView updateProduct(@ModelAttribute ProductUpdateRequestDto productUpdateRequestDto) throws Exception;

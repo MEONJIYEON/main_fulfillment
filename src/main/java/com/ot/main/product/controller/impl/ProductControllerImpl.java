@@ -74,6 +74,14 @@ public class ProductControllerImpl implements ProductController{
 		return new ModelAndView("redirect:/api/v1/main-fulfillment/product/selectAll");
 	}
 	
+	
+	@PostMapping("/createPage")
+	public ModelAndView saveProductPage() {
+		ModelAndView mav = new ModelAndView("/product/product_create");
+		return mav;
+		
+	}
+	
 	// update
 	/* 
 	@Override
@@ -104,6 +112,16 @@ public class ProductControllerImpl implements ProductController{
 		} else {
 			return new ModelAndView("redirect:/api/v1/main-fulfillment/product/selectAll");
 		}
+	}
+	
+	@PostMapping("/updatePage")
+	public ModelAndView updateProductPage(@ModelAttribute ProductUpdateRequestDto productUpdateRequestDto ) {
+		
+		
+		ModelAndView mav = new ModelAndView("/product/product_update");
+		mav.addObject("product" , productUpdateRequestDto);
+		return mav;
+		
 	}
 	
 	//delete
