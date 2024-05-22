@@ -134,10 +134,7 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 		session.invalid();
 	
 	}
-	
-	
-	
-	
-	
 	*/
+	
+	
 }

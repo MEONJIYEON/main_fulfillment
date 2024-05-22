@@ -23,4 +23,5 @@ public interface InController  {
 	//ResponseEntity<String> deleteIn(@RequestParam Long id) throws Exception;
 	ModelAndView deleteIn(@RequestParam Long id) throws Exception;
 	
+	
 }

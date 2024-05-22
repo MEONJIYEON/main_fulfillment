@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +20,9 @@ import com.ot.main.in.data.dto.InCreateResponseDto;
 import com.ot.main.in.data.dto.InSelectAllResponseDto;
 import com.ot.main.in.data.dto.InUpdateRequestDto;
 import com.ot.main.in.data.dto.InUpdateResponseDto;
+import com.ot.main.in.data.dto.MainToManufacturerDto;
+import com.ot.main.in.data.dto.ManufacturerToMainDto;
 import com.ot.main.in.service.InService;
-import com.ot.main.out.data.dto.OutUpdateRequestDto;
 
 
 @RestController
@@ -129,6 +129,26 @@ public class InControllerImpl implements InController {
 		String result = inService.deleteIn(id);
 		return new ModelAndView("redirect:/api/v1/main-fulfillment/in/selectAll");
 	}
+	
+	
+	// WebClient 통신 메인 -> 제조사 요청
+	@PostMapping("/mainToManufacturer")
+	public ResponseEntity<MainToManufacturerDto> mainToManufacturer(@RequestParam String out_productcode,
+			@RequestParam String out_pname, @RequestParam Integer out_stock ) {
+		return inService.mainToManufacturer(out_productcode, out_pname, out_stock);
+	}
+	
+	
+	// WebClient 통신 제조사 -> 메인 응답
+	@PostMapping("/manufacturerToMain")
+	public ResponseEntity<ManufacturerToMainDto> ManufacturerToMain(@RequestBody ManufacturerToMainDto manufacturerToMainDto){
+		System.out.println(manufacturerToMainDto.getOut_pname());
+		System.out.println(manufacturerToMainDto.getOut_stock());
+		
+		return ResponseEntity.status(HttpStatus.OK).body(manufacturerToMainDto);
+	}
+	
+	
 	
 	
 		
