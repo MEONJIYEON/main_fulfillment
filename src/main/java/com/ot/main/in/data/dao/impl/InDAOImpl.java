@@ -50,7 +50,7 @@ public class InDAOImpl implements InDAO{
 		if(selectedIn.isPresent()) {
 			In requestIn = selectedIn.get();
 			requestIn.setInStock(in.getInStock());
-			requestIn.setInRequest_at(in.getInRequest_at());
+			requestIn.setInStatus(in.isInStatus());
 			requestIn.setInComplete_at(in.getInComplete_at());
 			updatedIn = inRepository.save(requestIn);
 			

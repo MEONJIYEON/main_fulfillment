@@ -29,6 +29,7 @@ public class OutDAOImpl implements OutDAO{
 	@Override
 	public Out insertOut(Out out, String productCode) {
 		Product product = productRepository.getById(productCode);
+		
 		out.setProduct(product);
 	
 		Out savedOut = outRepository.save(out);
@@ -51,7 +52,6 @@ public class OutDAOImpl implements OutDAO{
 		if(selectedOut.isPresent()) {
 			Out requestOut = selectedOut.get();
 			requestOut.setOutStock(out.getOutStock());
-			requestOut.setOutRequest_at(out.getOutRequest_at());
 			requestOut.setOutComplete_at(out.getOutComplete_at());
 			updatedOut = outRepository.save(requestOut);
 			

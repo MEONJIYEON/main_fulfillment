@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ot.main.in.data.dao.InDAO;
 import com.ot.main.in.data.dto.InCreateRequestDto;
@@ -13,6 +17,7 @@ import com.ot.main.in.data.dto.InCreateResponseDto;
 import com.ot.main.in.data.dto.InSelectAllResponseDto;
 import com.ot.main.in.data.dto.InUpdateRequestDto;
 import com.ot.main.in.data.dto.InUpdateResponseDto;
+import com.ot.main.in.data.dto.MainToManufacturerDto;
 import com.ot.main.in.data.entity.In;
 import com.ot.main.in.service.InService;
 
@@ -69,7 +74,7 @@ public class InServiceImpl implements InService {
 		in.setId(inUpdateRequestDto.getId());
 		in.setInStock(inUpdateRequestDto.getInStock());
 		in.setInStatus(inUpdateRequestDto.isInStatus());
-		in.setInComplete_at(inUpdateRequestDto.getInComplete_at());
+		in.setInComplete_at(LocalDateTime.now());
 		
 		In updatedIn = inDAO.updateIn(in);
 		
@@ -88,6 +93,28 @@ public class InServiceImpl implements InService {
 	public String deleteIn(Long id) throws Exception {
 		String result = inDAO.deleteIn(id);
 		return result;
+	}
+	
+	@Override
+	public ResponseEntity<MainToManufacturerDto> mainToManufacturer(String out_productcode, String out_pname, Integer out_stock) {
+		
+		
+		WebClient webClient = WebClient.builder()
+	            .baseUrl("http://localhost:9002")
+	            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	            .build();
+	    
+		MainToManufacturerDto mainToManufacturerDto = new MainToManufacturerDto();
+		mainToManufacturerDto.setOut_productcode(out_productcode);
+		mainToManufacturerDto.setOut_pname(out_pname);
+		mainToManufacturerDto.setOut_stock(out_stock);
+		System.out.println(mainToManufacturerDto);
+	    return webClient.post()
+	            .uri("/manufacturer/mainToManufacturer")
+	            .bodyValue(mainToManufacturerDto)
+	            .retrieve()
+	            .toEntity(MainToManufacturerDto.class)
+	            .block();
 	}
 
 }
