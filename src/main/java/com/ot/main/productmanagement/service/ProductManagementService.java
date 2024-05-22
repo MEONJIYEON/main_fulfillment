@@ -13,7 +13,7 @@ import com.ot.main.productmanagement.data.dto.ProductManagementUpdateResponseDTO
 public interface ProductManagementService{
 	
 	//CREATE STOCK
-	public ProductManagementCreateResponseDTO createStock(ProductManagementCreateRequestDTO productManagementCreateRequestDTO);		
+	public ProductManagementCreateResponseDTO createStock(String productCode);		
 	
 	//MODIFY STOCK
 	public ProductManagementUpdateResponseDTO modifyInStock(String productCode, boolean inStatus, Integer inStock);

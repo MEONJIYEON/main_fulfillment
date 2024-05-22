@@ -25,8 +25,6 @@ public class ProductManagement {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_management_seq")
    private Long id;
    
-//   @OneToOne
-//   @JoinColumn(name = "productcode")
    private String productCode;
       
    private String name;

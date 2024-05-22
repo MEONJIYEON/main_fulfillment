@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.delivery.data.dto.DeliveryCreateRequestDTO;
 import com.ot.main.delivery.data.dto.DeliveryCreateResponseDTO;
@@ -20,8 +21,13 @@ public interface DeliveryController {
 	//select one & update
 	ResponseEntity<DeliveryUpdateResponseDTO> updateDelivery(@RequestParam Long id, 
 			@RequestParam String productCode, @RequestParam boolean outStatus, @RequestParam Integer outStock);
-
-
+	
 	//배송 목록 조회
-	ResponseEntity<List<DeliveryListResponseDTO>> selectDeliverlist();
+	public ModelAndView selectDeliverlist();
+	
+	//입고 -> 재고 변경
+	public ModelAndView updateByIn();
+	
+	//출고 -> 재고 변경
+	public ModelAndView updateByOut();
 }

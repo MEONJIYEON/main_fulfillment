@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.ot.main.delivery.controller.DeliveryController;
 import com.ot.main.delivery.data.dto.DeliveryCreateRequestDTO;
 import com.ot.main.delivery.data.dto.DeliveryCreateResponseDTO;
@@ -21,12 +23,12 @@ import com.ot.main.delivery.service.DeliveryService;
 @RequestMapping(value = "/api/v1/main-fulfillment")
 public class DeliveryControllerImpl implements DeliveryController {
 
-	private DeliveryService deliverService;
+	private DeliveryService deliveryService;
 
 	@Autowired
-	public DeliveryControllerImpl(DeliveryService deliverService) {
+	public DeliveryControllerImpl(DeliveryService deliveryService) {
 		System.out.println("==========DeliveryControllerImpl============");
-		this.deliverService = deliverService;
+		this.deliveryService = deliveryService;
 	}
 
 	// create Delivery
@@ -35,39 +37,59 @@ public class DeliveryControllerImpl implements DeliveryController {
 	public ResponseEntity<DeliveryCreateResponseDTO> createDelivery(DeliveryCreateRequestDTO deliveryRequestDTO) {
 
 		System.out.println("==" + deliveryRequestDTO.toString() + "=="); // test 후 삭제
-		DeliveryCreateResponseDTO result = deliverService.createDelivery(deliveryRequestDTO);
+		DeliveryCreateResponseDTO result = deliveryService.createDelivery(deliveryRequestDTO);
 
 		System.out.println(result.toString()); // test 후 삭제
 		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
-
 	// update
 	@PutMapping("/updateDelivery")
 	@Override
-	public ResponseEntity<DeliveryUpdateResponseDTO> updateDelivery(Long id, String productCode,
-			boolean outStatus, Integer outStock) {
-		
-		//data check ------------------ test 후 삭제처리
+	public ResponseEntity<DeliveryUpdateResponseDTO> updateDelivery(Long id, String productCode, boolean outStatus,
+			Integer outStock) {
+
+		// data check ------------------ test 후 삭제처리
 		System.out.println("== id : " + id + "==");
 		System.out.println("== outStock : " + outStock + "==");
 		System.out.println("== outStatus : " + outStatus + "==");
 		System.out.println("== productCode : " + productCode + "==");
 
-		DeliveryUpdateResponseDTO result = deliverService.updateDelivery(id, productCode, outStatus, outStock);
+		DeliveryUpdateResponseDTO result = deliveryService.updateDelivery(id, productCode, outStatus, outStock);
 		System.out.println(result.toString());
 
 		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
-	//목록조회
-	@GetMapping("/selectDeliverlist")
+	// 목록조회
+	@GetMapping("/selectDeliverylist")
 	@Override
-	public 	ResponseEntity<List<DeliveryListResponseDTO>> selectDeliverlist() {
-	
-		List<DeliveryListResponseDTO> delivery = deliverService.selectDeliverlist();
+	public ModelAndView selectDeliverlist() {
+		ModelAndView mav = new ModelAndView();
+		
+		List<DeliveryListResponseDTO> delivery = deliveryService.selectDeliverlist();
+		mav.addObject("deliveryList",delivery);
+		mav.setViewName("/delivery/delivery_List");
 
-		return ResponseEntity.status(HttpStatus.OK).body(delivery);
+		return mav;
 }
+	
+	// 재고 상태 변경 update 창 _ 입고
+	@GetMapping("/updateByIn")
+	@Override
+	public ModelAndView updateByIn() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/productManagement/productManagement_updateByIn");
+		return mav;
+	}
+
+	// 재고 상태 변경 update 창 _ 출고
+	@GetMapping("/updateByOut")
+	@Override
+	public ModelAndView updateByOut() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/productManagement/productManagement_updateByOut");
+		return mav;
+	}
 
 }

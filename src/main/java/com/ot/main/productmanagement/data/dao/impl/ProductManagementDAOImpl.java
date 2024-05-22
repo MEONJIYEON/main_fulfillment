@@ -1,6 +1,7 @@
 package com.ot.main.productmanagement.data.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import com.ot.main.in.controller.impl.InControllerImpl;
 import com.ot.main.in.data.dto.InCreateRequestDto;
 import com.ot.main.out.controller.impl.OutControllerImpl;
 import com.ot.main.out.data.dto.OutCreateRequestDto;
+import com.ot.main.product.data.entity.Product;
 import com.ot.main.product.data.repository.ProductRepository;
 import com.ot.main.productmanagement.data.dao.ProductManagementDAO;
 import com.ot.main.productmanagement.data.entity.ProductManagement;
@@ -34,6 +36,14 @@ public class ProductManagementDAOImpl implements ProductManagementDAO{
     // 재고 생성
 	@Override
 	public ProductManagement createStock(ProductManagement productManagement) {
+		Optional<Product> product= productRepository.findById(productManagement.getProductCode());
+		
+		productManagement.setLeadTime(product.get().getLeadTime());
+		productManagement.setName(product.get().getName());
+		productManagement.setProductCode(product.get().getProductCode());
+		productManagement.setProductStock(product.get().getProductStock());
+		productManagement.setSafetyStock(product.get().getSafetyStock());
+	
     	ProductManagement createStock = productManagementRepository.save(productManagement);
     	System.out.println("createStock : " + createStock);
 		return createStock;

@@ -19,7 +19,7 @@ public interface ProductManagementController  {
 	
 	
 	//CREATE STOCK
-	public ResponseEntity<ProductManagementCreateResponseDTO> createStock(@RequestBody ProductManagementCreateRequestDTO productManagementCreateRequestDTO);		
+	public ModelAndView createStock(@RequestParam String productCode);		
 	
 	//MODIFY STOCK (상품코드랑 입고상태와 수량)
 	public ResponseEntity<ProductManagementUpdateResponseDTO> modifyInStock(@RequestParam String productCode , boolean inStatus, Integer inStock);
@@ -28,13 +28,16 @@ public interface ProductManagementController  {
 	public ResponseEntity<ProductManagementUpdateResponseDTO> modifyOutStock(@RequestParam String productCode , boolean outStatus, Integer outStock);
 	
 	//selectStockDetail
-	public ResponseEntity<ProductManagementSelectOneResponseDTO> selectStockDetail(@RequestParam Long id);
+	public ModelAndView selectStockDetail(@RequestParam Long id);
 	
 	//selectStockList
-	public ResponseEntity<List<ProductManagementSelectListResponseDTO>> selectStockList();
+	public ModelAndView selectStockList();
 			
 	//compareStockAndSafetyStock
-	//상품코드를 가진 주문이 있으면, ProductManagementSelectOneResponseDTO의 안전재고와 보유재고를 비교하고 IN OUT create 
 	public void compareStockAndSafetyStock(@RequestParam String productCode);
+	
+	public ModelAndView goToCreateStock();
+	
+
 
 }
