@@ -30,16 +30,13 @@ public class ProductManagementServiceImpl implements ProductManagementService {
 
     //create
 	@Override
-	public ProductManagementCreateResponseDTO createStock(ProductManagementCreateRequestDTO productManagementCreateRequestDTO) {
+	public ProductManagementCreateResponseDTO createStock(String productCode) {
 
 		ProductManagement productManagement = new ProductManagement();
 		
-		productManagement.setLeadTime(productManagementCreateRequestDTO.getLeadTime());
-		productManagement.setName(productManagementCreateRequestDTO.getName());
-		productManagement.setProductCode(productManagementCreateRequestDTO.getProductCode());
-		productManagement.setProductStock(productManagementCreateRequestDTO.getProductStock());
-		productManagement.setSafetyStock(productManagementCreateRequestDTO.getSafetyStock());
-		
+		productManagement.setProductCode(productCode);
+
+
 		ProductManagement createStock = productManagementDAO.createStock(productManagement);
 	
 		ProductManagementCreateResponseDTO result = new ProductManagementCreateResponseDTO();
@@ -50,6 +47,8 @@ public class ProductManagementServiceImpl implements ProductManagementService {
 		result.setProductCode(createStock.getProductCode());
 		result.setProductStock(createStock.getProductStock());
 		result.setSafetyStock(createStock.getSafetyStock());
+		
+		
 		
 		return result;
 	}

@@ -6,9 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 public interface AdminController {
 
 	//showLogin
-	public String showLogin();
+	ModelAndView showLogin();
 	
 	//Login
 	ModelAndView login(@RequestParam String id);
 	
+	//Home
+	ModelAndView showHome();
 }

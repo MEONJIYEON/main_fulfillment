@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manufacturer Management</title>
+<!--   	<meta charset="UTF-8"> -->
+  	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+        <h1>Detail</h1>
+
+ 
+		<table>
+			<tr>
+				<th>번호</th>
+				<td th:text="${oneStock.id}"></td>
+			</tr>
+			<tr>
+				<th>상품코드</th>
+				<td th:text="${oneStock.productCode}"></td>
+			</tr>
+			<tr>
+				<th>상품명</th>
+				<td th:text="${oneStock.name}"></td>
+			</tr>
+			<tr>
+				<th>재고상태</th>
+				<td th:text="${oneStock.productStock}"></td>
+			</tr>
+			<tr>
+				<th>안전재고</th>
+				<td th:text="${oneStock.safetyStock}"></td>
+			</tr>
+			<tr>
+				<th>리드타임</th>
+				<td th:text="${oneStock.leadTime}"></td>
+			</tr>
+		</table>
+		
+		<form th:action="@{/api/v1/main-fulfillment/selectStockDetail}">
+		
+		</form>
+		
+		<input th:type="submit" th:value="수정하기"/>
+		
+		
+	</div>
+</body>
+</html>

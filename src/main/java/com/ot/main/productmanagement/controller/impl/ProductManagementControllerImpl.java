@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.productmanagement.controller.ProductManagementController;
+import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCreateRequestDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
-import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementSelectOneResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementUpdateResponseDTO;
@@ -32,16 +34,17 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 	}
 
 	// 재고 생성
-	@PostMapping("createStock")
+	@PostMapping("/createStock")
 	@Override
-	public ResponseEntity<ProductManagementCreateResponseDTO> createStock(
-			ProductManagementCreateRequestDTO productManagementCreateRequestDTO) {
+	public ModelAndView createStock(@RequestParam String productCode) {
 
-		ProductManagementCreateResponseDTO createProduct = productManagementService
-				.createStock(productManagementCreateRequestDTO);
-		System.out.println("============createProduct : " + createProduct + "================");
+		ModelAndView mav = new ModelAndView();
+		
+		ProductManagementCreateResponseDTO createProduct = productManagementService.createStock(productCode);
+		mav.addObject("createProduct" , createProduct);
+		mav.setViewName("redirect:/api/v1/main-fulfillment/lookUpStock");
 
-		return ResponseEntity.status(HttpStatus.OK).body(createProduct);
+		return mav;
 	}
 
 	// 재고수정
@@ -73,23 +76,30 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 	// 재고 상세보기
 	@GetMapping("/selectStockDetail")
 	@Override
-	public ResponseEntity<ProductManagementSelectOneResponseDTO> selectStockDetail(Long id) {
+	public ModelAndView selectStockDetail(Long id) {
 
+		ModelAndView mav = new ModelAndView();
+		
 		ProductManagementSelectOneResponseDTO oneStock = productManagementService.selectStockDetail(id);
 		System.out.println("oneStock : " + oneStock);
-
-		 return ResponseEntity.status(HttpStatus.OK).body(oneStock);
+		
+		mav.addObject("oneStock",oneStock);
+		mav.setViewName("/productManagement/productManagement_Detail");
+		 return mav;
 	}
 
 	// 재고목록 조회
 	@GetMapping("/lookUpStock")
 	@Override
-	public ResponseEntity<List<ProductManagementSelectListResponseDTO>> selectStockList() {
-
-		List<ProductManagementSelectListResponseDTO> stockList = productManagementService.selectStockList();
-		System.out.println("=========" + stockList + "=========");
+	public ModelAndView selectStockList() {
+		ModelAndView mav = new ModelAndView();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(stockList) ;
+		List<ProductManagementSelectListResponseDTO> stockList = productManagementService.selectStockList();
+		System.err.println("stockList : " +  stockList);
+		
+		mav.addObject("stockList", stockList);
+		mav.setViewName("/productManagement/productManagement_List");
+		return mav;
 	}
 
 	// 안전재고 , 보유 재고 비교
@@ -98,6 +108,17 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 	public void compareStockAndSafetyStock(String productCode) {
 		ProductManagementCompareResponseDTO productManagementCompareResponseDTO = productManagementService.compareStockAndSafetyStock(productCode);
 	}
+
+	//create창으로 이동
+	@GetMapping("/goToCreateStock")
+	@Override
+	public ModelAndView goToCreateStock() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/productManagement/productManagement_create");
+		return mav;
+	}
+
+
 	
 	// 서버로부터 주문정보를 받아옴 
 	
