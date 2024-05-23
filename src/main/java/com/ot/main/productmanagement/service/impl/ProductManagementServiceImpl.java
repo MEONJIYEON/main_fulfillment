@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ot.main.productmanagement.data.dao.ProductManagementDAO;
-import com.ot.main.productmanagement.data.dto.ProductManagementCreateRequestDTO;
-import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
+import com.ot.main.productmanagement.data.dto.MainToShopDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
+import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementSelectOneResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementUpdateResponseDTO;
@@ -133,6 +136,23 @@ public class ProductManagementServiceImpl implements ProductManagementService {
 		ProductManagement compareStock = productManagementDAO.compareStockAndSafetyStock(productCode);
 		
 		return null;
+	}
+
+	
+	@Override
+	public ResponseEntity<MainToShopDTO> mainToShop(MainToShopDTO mainToShopDTO) {
+		WebClient webClient = WebClient.builder()
+	            .baseUrl("http://localhost:9000")
+	            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	            .build();
+
+		System.out.println(mainToShopDTO);
+	    return webClient.post()
+	            .uri("/api/v1/shop-fulfillment/mainToShop")
+	            .bodyValue(mainToShopDTO)
+	            .retrieve()
+	            .toEntity(MainToShopDTO.class)
+	            .block();
 	}
 
 		

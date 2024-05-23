@@ -6,20 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.productmanagement.controller.ProductManagementController;
+import com.ot.main.productmanagement.data.dto.MainToShopDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
-import com.ot.main.productmanagement.data.dto.ProductManagementCreateRequestDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementSelectListResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementSelectOneResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementUpdateResponseDTO;
+import com.ot.main.productmanagement.data.dto.ShopToMainResponseDTO;
 import com.ot.main.productmanagement.service.ProductManagementService;
 
 @RestController
@@ -137,4 +140,21 @@ public class ProductManagementControllerImpl implements ProductManagementControl
 	*/
 	
 	
+	// WebClient 통신 메인 -> 쇼핑 (요청)
+	@PostMapping("/productManagement/mainToShop")
+	public ResponseEntity<MainToShopDTO> mainToShop(@ModelAttribute MainToShopDTO mainToShopDTO){
+		System.out.println(mainToShopDTO);
+		return productManagementService.mainToShop(mainToShopDTO);
+	}
+	
+	
+	// WebClient 통신 쇼핑 -> 메인 (응답)  
+	@PostMapping("/productManagement/shopToMain")
+	public ResponseEntity<ShopToMainResponseDTO> shopToMain(@RequestBody ShopToMainResponseDTO shopToMainResponseDTO){
+		System.out.println(shopToMainResponseDTO.getProductCode());
+		System.out.println(shopToMainResponseDTO.getProductName());
+		
+		return ResponseEntity.status(HttpStatus.OK).body(shopToMainResponseDTO);
+	}
+
 }

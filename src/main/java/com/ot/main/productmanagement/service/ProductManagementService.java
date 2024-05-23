@@ -2,6 +2,9 @@ package com.ot.main.productmanagement.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
+import com.ot.main.productmanagement.data.dto.MainToShopDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCompareResponseDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCreateRequestDTO;
 import com.ot.main.productmanagement.data.dto.ProductManagementCreateResponseDTO;
@@ -29,6 +32,8 @@ public interface ProductManagementService{
 	
 	//Compare
 	public ProductManagementCompareResponseDTO compareStockAndSafetyStock(String productCode);
+
+	public ResponseEntity<MainToShopDTO> mainToShop(MainToShopDTO mainToShopDTO);
 
 
 
