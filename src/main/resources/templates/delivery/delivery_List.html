@@ -12,6 +12,9 @@
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+   
+   
+   <!--  --------------------------------------------------------------------------------------------- -->
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -105,8 +108,6 @@
     </style>
 </head>
 
-
-
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
@@ -144,7 +145,7 @@
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark"
+			<nav class="sb-sidenav accordion sb-sidenav-light"
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
@@ -171,9 +172,7 @@
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link"
-									th:href="@{/api/v1/main-fulfillment/lookUpStock}">재고목록 조회</a> <a
-									class="nav-link"
-									th:href="@{/api/v1/main-fulfillment/goToCreateStock}">재고 생성</a>
+									th:href="@{/api/v1/main-fulfillment/lookUpStock}">재고목록 조회</a> 
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -217,8 +216,26 @@
 									내역 </a> <a class="nav-link"
 									th:href="@{/api/v1/main-fulfillment/out/selectAll}">출고
 									내역 </a>
-
-							</nav>
+					</div>
+					
+					<!-- -------------------------- -->
+								
+				    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false"
+						 aria-controls="collapsePages">
+											
+					 <div class="sb-nav-link-icon">
+							  <i class="fas fa-book-open"></i>
+					 </div> 상품관리
+										
+						 <div class="sb-sidenav-collapse-arrow">
+									 <i class="fas fa-angle-down"></i>
+						 </div>
+						 </a>
+						
+						<div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+								<a class="nav-link" th:href="@{/api/v1/main-fulfillment/product/selectAll}"> 상품 목록 조회 </a> 
+								</nav>
 						</div>
 
 					</div>
@@ -229,15 +246,25 @@
 				</div>
 			</nav>
 		</div>
-
+			
+<!-- ---------------------------------------------------------------------------------------------- -->
+			
+			
+			
+	
+	
+	
 
 
 <!-- ---------------------------------------------------------------------------------------------- -->
-
-
+			
+			
+			
+			
       <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
+                   
                     <h1 class="mt-4 text-center">배송목록조회</h1>
                     <div th:if="${message}" class="text-center">
                         <p th:text="${message}"></p>
@@ -245,6 +272,7 @@
                     
                     <div class="table-responsive mx-auto" style="max-width: 80%;">
                         <table class="table table-bordered">
+                        
                             <thead>
                                 <tr>
                                     <th>번호</th>
@@ -275,6 +303,20 @@
                     </div>
                 </div>
             </main>
+            
+               <footer class="py-4 bg-light mt-auto">
+				<div class="container-fluid px-4">
+					<div
+						class="d-flex align-items-center justify-content-between small">
+						<div class="text-muted">Copyright &copy; Your Website 2023</div>
+						<div>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
+								&amp; Conditions</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+            
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

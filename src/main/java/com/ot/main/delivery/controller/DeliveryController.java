@@ -1,6 +1,5 @@
 package com.ot.main.delivery.controller;
 
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ot.main.delivery.data.dto.DeliveryCreateRequestDTO;
 import com.ot.main.delivery.data.dto.DeliveryCreateResponseDTO;
-import com.ot.main.delivery.data.dto.DeliveryListResponseDTO;
 import com.ot.main.delivery.data.dto.DeliveryUpdateResponseDTO;
 
 public interface DeliveryController {
