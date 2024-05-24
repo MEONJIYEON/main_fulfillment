@@ -25,17 +25,18 @@ public class ProductManagement {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_management_seq")
    private Long id;
    
+   @Column (name="productcode")
    private String productCode;
       
    private String name;
    
-   @Column (name="safetyStock")
+   @Column (name="safetystock")
    private Integer safetyStock;
    
-   @Column (name="productStock")
+   @Column (name="productstock")
    private Integer productStock;
    
-   @Column(name="leadTime")
+   @Column(name="leadtime")
    private Integer leadTime;
    
 }

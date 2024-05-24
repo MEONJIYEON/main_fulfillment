@@ -11,24 +11,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ShopToMainResponseDTO {
-	private String name;
-	private String hp1;
-	private String hp2;
-	private String hp3;
-	private String zipcode;
-	private String address;
-	
-	private String productCode;
-	
-	private Integer stock;
-	
-	private String productName;
-	
-	private String orderNumber;
-
-	private int ordercount;
-    
-	private LocalDateTime create_at;
+   private String userName;
    
-	private LocalDateTime updated_at;
+   private String hp1;
+   
+   private String hp2;
+   
+   private String hp3;
+   
+   private String zipcode;
+   
+   private String address;
+   
+   private String productCode;
+
+   private String productName;
+
+   private int orderCount;
+   
 }
