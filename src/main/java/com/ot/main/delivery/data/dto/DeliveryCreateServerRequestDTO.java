@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeliveryCreateRequestDTO {
-   
+public class DeliveryCreateServerRequestDTO {
    private String userName;
 
    private String hp1;
@@ -27,6 +26,4 @@ public class DeliveryCreateRequestDTO {
    
    private String productCode;
    
-   
-    
 }
