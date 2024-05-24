@@ -89,6 +89,8 @@
                     <th>입고 요청 시간</th>
                     <th>입고 완료 시간</th>
                     <th>입고 상태</th>
+                    <th>입고 요청</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -111,6 +113,14 @@
                         	<input type="hidden" name="inStock" th:value="${in.inStock}">
                         	<input type="hidden" name="inStatus" th:value="${in.inStatus}">
                         	<button type="submit">수정</button>
+                        </form>
+                    </td>
+                    <td>
+                    	<form th:action="@{/api/v1/main-fulfillment/in/mainToManufacturer}"method="post">
+                        	<input type="hidden" name="out_pname" th:value="${in.getProduct().getName()}">
+                        	<input type="hidden" name="out_productcode" th:value="${in.getProduct().getProductCode()}">
+                        	<input type="hidden" name="out_stock" th:value="${in.inStock}">
+                        	<button type="submit">입고 요청</button>
                         </form>
                     </td>
                     
